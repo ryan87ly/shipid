@@ -4,23 +4,32 @@ app.factory('socket', function($rootScope){
 	var socket = io.connect();
 	return {
 		on : function(eventName, callback) {
-			socket.on(eventName, callback);
+			socket.on(eventName, function () {  
+		        var args = arguments;
+		        $rootScope.$apply(function () {
+		          callback.apply(socket, args);
+		        });
+		    });
 		}
 	};
 });
-
-app.controller('PhoneListCtrl', ['$scope', 'socket', function ($scope, socket) {
-  $scope.phones = [
-    {'name': 'Nexus S',
-     'snippet': 'Fast just got faster with Nexus S.'},
-    {'name': 'Motorola XOOM™ with Wi-Fi',
-     'snippet': 'The Next, Next Generation tablet.'},
-    {'name': 'MOTOROLA XOOM™',
-     'snippet': 'The Next, Next Generation tablet.'}
-  ];
+  
+app.controller('frondendCtrl', ['$scope', 'socket', function ($scope, socket) {
+  $scope.messages = [];
 
   socket.on('message', function(data){
-  	console.log("getting data " + data);
+  	var displayableData = toDisplayableObject(data);
+  	console.log("getting " + JSON.stringify(displayableData));
+  	$scope.messages.push(displayableData);
   })
 
+  $scope.plugins = function get(){
+  	 var result = [];
+  	 for(var i = 0; i < 5; ++ i){
+  	 	result.push("plugin " + i);
+  	 }
+  	 return result;
+  }();
+
+  
 }]);
