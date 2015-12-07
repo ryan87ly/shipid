@@ -53,6 +53,21 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <label> Haha </label>
+                                    <select class="form-control" ng-model="message.selected" ng-options="plugin for plugin in plugins"></select>
+                                </div>
+                                
+                                <!-- <label class="control-label col-md-1" for="singleSelect"> Single select: </label>
+                                <select name="singleSelect" ng-model="message.selected" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                                    <option ng-repeat="plugin in plugins" value={{plugin}}>{{plugin}}</option>
+                                </select>
+                                -->
+                            </div>
+                        </div>
                         <textarea class="form-control" ng-model="message.content" rows="3"></textarea>
                         <button type="submit" class="btn btn-primary" ng-click="send(message)">Send</button>
                     </div>
