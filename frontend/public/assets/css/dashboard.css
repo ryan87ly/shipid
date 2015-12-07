@@ -103,3 +103,15 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+
+.messagepanel {
+    overflow-y: scroll;
+    height:800px;
+    right: 0;
+}
+
+.messagetable {
+    text-align: left;
+    margin: auto;
+}

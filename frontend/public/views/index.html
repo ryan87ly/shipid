@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html ng-app = 'myapp'>
   	<head>
-    	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-    	<script src="https://cdn.socket.io/socket.io-1.3.7.js"></script>
+    	<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.js"></script>
+    	<script src="//cdn.socket.io/socket.io-1.3.7.js"></script>
     	<script src="../controllers/controller.js"></script>
         <script src="../assets/js/script.js"></script>
+        <script src="//angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.14.3.js"></script>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
         <link href="../assets/css/dashboard.css" rel="stylesheet">
-    	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     </head>
     <script type="text/javascript">
     	
@@ -24,9 +26,39 @@
 					</ul>
 		    	</div>
                 <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-                    <div class="panel panel-default">
+                    <div class="form-group">
+                        <div class="form-group form-group-lg">
+                            <div class="row">
+                                <label class="control-label col-md-1">From Plugin</label>
+                                <div class="btn-group col-md-3" uib-dropdown is-open="pluginSelect.fromPlugin">
+                                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                                        {{pluginSelection.fromPlugin}} <span class="caret"></span>
+                                    </button>
+                                    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+                                        <li role="menuitem" ng-repeat="plugin in plugins" ng-click="onClickFromPlugin(plugin)"><a href="#">{{plugin}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-group-lg">
+                            <div class="row">
+                                <label class="control-label col-md-1">To Plugin</label>
+                                <div class="btn-group col-md-3" uib-dropdown is-open="pluginSelect.toPlugin">
+                                    <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle>
+                                        {{pluginSelection.toPlugin}} <span class="caret"></span>
+                                    </button>
+                                    <ul class="uib-dropdown-menu" role="menu" aria-labelledby="single-button">
+                                        <li role="menuitem" ng-repeat="plugin in plugins" ng-click="onClickToPlugin(plugin)"><a href="#">{{plugin}}</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <textarea class="form-control" ng-model="message.content" rows="3"></textarea>
+                        <button type="submit" class="btn btn-primary" ng-click="send(message)">Send</button>
+                    </div>
+                    <div class="panel panel-default messagepanel">
                         <div class="panel-heading">Logging</div>
-                        <table class="table">
+                        <table class="table messagetable">
                             <thead>
                                 <tr>
                                     <th>Time</th>

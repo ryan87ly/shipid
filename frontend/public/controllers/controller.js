@@ -1,4 +1,4 @@
-var app = angular.module('myapp', []);
+var app = angular.module('myapp', ['ngAnimate', 'ui.bootstrap']);
 
 app.factory('socket', function($rootScope){
 	var socket = io.connect();
@@ -31,5 +31,27 @@ app.controller('frondendCtrl', ['$scope', 'socket', function ($scope, socket) {
   	 return result;
   }();
 
-  
+  $scope.send = function(msg) {
+  	 console.log("send message: " + JSON.stringify(msg));
+  }
+
+  $scope.pluginSelect = {
+  	 fromPlugin : false,
+  	 toPlugin : false
+  };
+
+  $scope.pluginSelection = {
+  	 toPlugin : "Select Plugin",
+  	 fromPlugin : "Select Plugin",
+  }
+
+  $scope.onClickToPlugin = function(pluginName) {
+  	 $scope.pluginSelection.toPlugin = pluginName;
+  	 console.log("onClickToPlugin: " + pluginName);
+  }
+
+  $scope.onClickFromPlugin = function(pluginName) {
+  	$scope.pluginSelection.fromPlugin = pluginName;
+  	console.log("onClickFromPlugin: " + pluginName);
+  }
 }]);
