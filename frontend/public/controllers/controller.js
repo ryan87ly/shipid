@@ -43,9 +43,18 @@ app.controller('frondendCtrl', ['$scope', 'socket', function ($scope, socket) {
 
   $scope.send = function(msg) {
   	 console.log("send message: " + JSON.stringify(msg));
+     socket.emit("message", msg);
   }
 
-  $scope.pluginSelect = {
+  $scope.checkSendMessage = function(msg) {
+    console.log("check " + JSON.stringify(msg));
+    if (msg.fromplugin && msg.toplugin && msg.content) {
+        return false;
+    }
+    return true;
+  }
+
+  /*$scope.pluginSelect = {
   	 fromPlugin : false,
   	 toPlugin : false
   };
@@ -63,5 +72,5 @@ app.controller('frondendCtrl', ['$scope', 'socket', function ($scope, socket) {
   $scope.onClickFromPlugin = function(pluginName) {
   	$scope.pluginSelection.fromPlugin = pluginName;
   	console.log("onClickFromPlugin: " + pluginName);
-  }
+  }*/
 }]);
