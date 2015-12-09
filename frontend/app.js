@@ -39,7 +39,7 @@ client.subscribe("channel1");
 */
 
 //var url = 'amqp://192.168.246.179:5672';
-var url = 'amqp://localhost:6000';
+var url = 'amqp://192.168.246.163:6000';
 
 var recvClient = mqlight.createClient({service: url});
 
@@ -52,7 +52,7 @@ app.get('/plugins', function(req, res){
 
 recvClient.on('started', function() {
 	  console.log("mq light started");
-	
+	 
 });
 
 recvClient.on('error', function(error) {

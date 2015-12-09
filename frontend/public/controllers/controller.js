@@ -49,36 +49,21 @@ app.controller('frondendCtrl', ['$scope', '$http', 'socket', function ($scope, $
       $scope.plugins = response.data;
   });
 
-  $scope.send = function(msg) {
-  	 console.log("send message: " + JSON.stringify(msg));
+  $scope.send = function(input) {
+  	 //console.log("send message: " + JSON.stringify(msg));
+     var msg = {
+        "fromPlugin" : input.fromPlugin.pluginName,
+        "toPlugin" : input.toPlugin.pluginName,
+        "content" : input.content
+     }
+     console.log("send message: " + JSON.stringify(msg));
      socket.emit("message", msg);
   }
 
   $scope.checkSendMessage = function(msg) {
-    console.log("check " + JSON.stringify(msg));
-    if (msg.fromplugin && msg.toplugin && msg.content) {
+    if (msg.fromPlugin && msg.fromPlugin.pluginName && msg.toPlugin && msg.toPlugin.pluginName && msg.content) {
         return false;
     }
     return true;
   }
-
-  /*$scope.pluginSelect = {
-  	 fromPlugin : false,
-  	 toPlugin : false
-  };
-
-  $scope.pluginSelection = {
-  	 toPlugin : "Select Plugin",
-  	 fromPlugin : "Select Plugin",
-  }
-
-  $scope.onClickToPlugin = function(pluginName) {
-  	 $scope.pluginSelection.toPlugin = pluginName;
-  	 console.log("onClickToPlugin: " + pluginName);
-  }
-
-  $scope.onClickFromPlugin = function(pluginName) {
-  	$scope.pluginSelection.fromPlugin = pluginName;
-  	console.log("onClickFromPlugin: " + pluginName);
-  }*/
 }]);

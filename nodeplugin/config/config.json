@@ -1,0 +1,4 @@
+{
+	"pluginName" : "nodeplugin3",
+	"mqurl" : "amqp://localhost:6000"
+}

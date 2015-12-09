@@ -19,6 +19,10 @@ var pluginHearbeat = function() {
 	return {pluginName: "plugin0"};
 }
 
+var pluginMessage = function() {
+	return {fromPlugin:"plugin0", toPlugin:"nodeplugin1", msg:"hahahahahah"};
+}
+
 
 recvClient.on('started', function() {
 	console.log("mq light started");
@@ -26,7 +30,11 @@ recvClient.on('started', function() {
 		console.log("send error " + error);
 	});*/
 
-	recvClient.send('heartbeat', pluginHearbeat(), function(error){
+	/*recvClient.send('heartbeat', pluginHearbeat(), function(error){
+		console.log("send error " + error);
+	});*/
+
+	recvClient.send('nodeplugin1/userRequest', pluginMessage(), function(error){
 		console.log("send error " + error);
 	});
 });
