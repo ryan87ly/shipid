@@ -1,0 +1,8 @@
+{
+  "name": "messagesender",
+  "version": "1.0.0",
+  "dependencies": {
+    "mqlight": "1.0.2015090202",
+    "moment": "^2.10.6"
+  }
+}

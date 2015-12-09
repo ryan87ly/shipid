@@ -24,26 +24,36 @@ app.factory('socket', function($rootScope){
 	};
 });
   
-app.controller('frondendCtrl', ['$scope', 'socket', function ($scope, socket) {
+
+app.controller('frondendCtrl', ['$scope', '$http', 'socket', function ($scope, $http, socket) {
   var max_buffer = 25;
   $scope.messages = [];
 
-  socket.on('message', function(data){
-  	var displayableData = toDisplayableObject(data);
-  	console.log("getting " + JSON.stringify(displayableData));
+  socket.on('log', function(data){
+    var displayableData = toDisplayableObject(data);
+    console.log("getting log " + JSON.stringify(displayableData));
 	if ($scope.messages.length >= max_buffer){
 		$scope.messages.shift();
 	}
-  	$scope.messages.push(displayableData);
+    	$scope.messages.push(displayableData);
+
   })
 
-  $scope.plugins = function get(){
-  	 var result = [];
-  	 for(var i = 0; i < 5; ++ i){
-  	 	result.push("plugin " + i);
-  	 }
-  	 return result;
-  }();
+  socket.on('pluginStatus', function(data){
+      console.log("getting pluginStatus " + JSON.stringify(data));
+      /*
+        data {
+           pluginName : "plugin0",
+           status: "on" // on/off
+        }
+      */
+      $scope.plugins[data.pluginName] = data;
+  });
+
+  $scope.plugins = {};
+  $http.get('/plugins', {}).then(function(response){
+      $scope.plugins = response.data;
+  });
 
   $scope.send = function(msg) {
   	 console.log("send message: " + JSON.stringify(msg));
