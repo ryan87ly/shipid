@@ -41,8 +41,8 @@
 		    	<div class="col-sm-3 col-md-2 preferFont sidebar" style="background-color:#f0f0f0">
 			    	<ul class="nav nav-sidebar" ng-repeat="(pluginName, plugin) in plugins">
 						<li>
-                            <a href="#">
-                                {{plugin.pluginName + " : " + plugin.status}}
+                            <a href="#" ng-style="{'color':checkColor(plugin.status)}">
+                                {{plugin.pluginName}}
                             </a>
                         </li>
 					</ul>

@@ -59,6 +59,14 @@ app.controller('frondendCtrl', ['$scope', '$http', 'socket', function ($scope, $
   	 console.log("send message: " + JSON.stringify(msg));
      socket.emit("message", msg);
   }
+  
+    $scope.checkColor = function(status) {
+    console.log("checkColor : " + status);
+    if (status == "on") {
+        return "green";
+    }
+    return "red";
+  }
 
   $scope.checkSendMessage = function(msg) {
     console.log("check " + JSON.stringify(msg));
