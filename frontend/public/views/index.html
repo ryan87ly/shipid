@@ -109,9 +109,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="message in messages" class="{{message.type}}">
+                                <tr ng-repeat="message in messages" class="{{message.type}}" set-focus="$last">
                                     <td class="col-md-2">{{message.time}}</td>
-                                    <td class="col-md-1">{{message.level}}</td>
+                                    <td class="col-md-1">{{message.level.toUpperCase()}}</td>
                                     <td class="col-md-7">{{message.content}}</td>
                                 </tr>
                             </tbody>

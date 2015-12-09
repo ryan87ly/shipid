@@ -25,11 +25,15 @@ app.factory('socket', function($rootScope){
 });
   
 app.controller('frondendCtrl', ['$scope', 'socket', function ($scope, socket) {
+  var max_buffer = 25;
   $scope.messages = [];
 
   socket.on('message', function(data){
   	var displayableData = toDisplayableObject(data);
   	console.log("getting " + JSON.stringify(displayableData));
+	if ($scope.messages.length >= max_buffer){
+		$scope.messages.shift();
+	}
   	$scope.messages.push(displayableData);
   })
 
