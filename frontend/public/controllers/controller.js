@@ -27,11 +27,15 @@ app.factory('socket', function($rootScope){
 app.controller('frondendCtrl', ['$scope', 'socket', function ($scope, socket) {
   $scope.messages = [];
 
-  socket.on('message', function(data){
+  socket.on('log', function(data){
   	var displayableData = toDisplayableObject(data);
-  	console.log("getting " + JSON.stringify(displayableData));
+  	console.log("getting log " + JSON.stringify(displayableData));
   	$scope.messages.push(displayableData);
   })
+
+  socket.on('pluginStatus', function(data){
+    console.log("getting pluginStatus " + JSON.stringify(data));
+  });
 
   $scope.plugins = function get(){
   	 var result = [];
