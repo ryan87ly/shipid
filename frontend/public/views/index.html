@@ -31,9 +31,6 @@
 					<li><a href="#">Settings</a></li>
 					<li><a href="#">Help</a></li>
 				  </ul>
-				  <form class="navbar-form navbar-right">
-					<input type="text" class="form-control" placeholder="Search...">
-				  </form>
 				</div>
 			  </div>
 		</nav>
@@ -41,8 +38,8 @@
 		    	<div class="col-sm-3 col-md-2 preferFont sidebar" style="background-color:#f0f0f0">
 			    	<ul class="nav nav-sidebar" ng-repeat="(pluginName, plugin) in plugins">
 						<li>
-                            <a href="#">
-                                {{plugin.pluginName + " : " + plugin.status}}
+                            <a href="#" >
+                               <button type="submit" class="btn btn-default btn-block" ng-click="send(inputmessage)" style="background:#f5f5f5" ng-style="{'color':checkColor(plugin.status)}"> {{plugin.pluginName }} </button>
                             </a>
                         </li>
 					</ul>
@@ -100,13 +97,15 @@
                                 <tr>
                                     <th class="col-md-2">Time</th>
                                     <th class="col-md-1">Level</th>
+									<th class="col-md-1">Plugin</th>
                                     <th class="col-md-7">Content</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="message in messages" class="{{message.type}}">
+                                <tr ng-repeat="message in messages" class="{{message.type}}" set-focus="$last">
                                     <td class="col-md-2">{{message.time}}</td>
-                                    <td class="col-md-1">{{message.level}}</td>
+                                    <td class="col-md-1">{{message.level.toUpperCase()}}</td>
+									<td class="col-md-1">{{message.fromPlugin}}</td>
                                     <td class="col-md-7">{{message.content}}</td>
                                 </tr>
                             </tbody>
