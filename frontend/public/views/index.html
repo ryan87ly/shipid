@@ -15,8 +15,30 @@
     </script>
     <body ng-controller="frondendCtrl">
     	<div class="container-fluid">
+		<nav class="navbar navbar-inverse navbar-fixed-top preferFont" style="background-color:#404040">
+			  <div class="container-fluid">
+				<div class="navbar-header">
+				  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				  </button>
+				  <a class="navbar-brand" href="#">Dashboard</a>
+				</div>
+				<div id="navbar" class="navbar-collapse collapse">
+				  <ul class="nav navbar-nav navbar-right">
+					<li><a href="#">Settings</a></li>
+					<li><a href="#">Help</a></li>
+				  </ul>
+				  <form class="navbar-form navbar-right">
+					<input type="text" class="form-control" placeholder="Search...">
+				  </form>
+				</div>
+			  </div>
+		</nav>
     		<div class="row">
-		    	<div class="col-sm-3 col-md-2 sidebar">
+		    	<div class="col-sm-3 col-md-2 preferFont sidebar" style="background-color:#f0f0f0">
 			    	<ul class="nav nav-sidebar" ng-repeat="plugin in plugins">
 						<li>
                             <a href="#">
@@ -73,6 +95,7 @@
                             </div>
                         </div>
                         <textarea class="form-control" ng-model="inputmessage.content" rows="3"></textarea>
+						<br/>
                         <button type="submit" class="btn btn-primary" ng-click="send(inputmessage)" ng-disabled="checkSendMessage(inputmessage)">Send</button>
                     </div>
                     <div class="panel panel-default messagepanel">
@@ -80,16 +103,16 @@
                         <table class="table messagetable">
                             <thead>
                                 <tr>
-                                    <th>Time</th>
-                                    <th>Level</th>
-                                    <th>Content</th>
+                                    <th class="col-md-2">Time</th>
+                                    <th class="col-md-1">Level</th>
+                                    <th class="col-md-7">Content</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="message in messages" class="{{message.type}}">
-                                    <td>{{message.time}}</td>
-                                    <td>{{message.level}}</td>
-                                    <td>{{message.content}}</td>
+                                    <td class="col-md-2">{{message.time}}</td>
+                                    <td class="col-md-1">{{message.level}}</td>
+                                    <td class="col-md-7">{{message.content}}</td>
                                 </tr>
                             </tbody>
                             <!--

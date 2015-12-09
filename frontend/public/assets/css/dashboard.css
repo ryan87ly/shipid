@@ -115,3 +115,7 @@ body {
     text-align: left;
     margin: auto;
 }
+
+.preferFont {
+	font-family: "Roboto", "Geneva", sans-serif
+}
