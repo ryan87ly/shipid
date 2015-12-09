@@ -39,10 +39,10 @@
 		</nav>
     		<div class="row">
 		    	<div class="col-sm-3 col-md-2 preferFont sidebar" style="background-color:#f0f0f0">
-			    	<ul class="nav nav-sidebar" ng-repeat="plugin in plugins">
+			    	<ul class="nav nav-sidebar" ng-repeat="(pluginName, plugin) in plugins">
 						<li>
                             <a href="#">
-                                {{plugin}}
+                                {{plugin.pluginName + " : " + plugin.status}}
                             </a>
                         </li>
 					</ul>
@@ -80,12 +80,12 @@
                             <div class="row">
                                 <div class="col-md-2">
                                     <label> From Plugin </label>
-                                    <select class="form-control" ng-model="inputmessage.fromplugin" ng-options="plugin for plugin in plugins"></select>
+                                    <select class="form-control" ng-model="inputmessage.fromplugin" ng-options="pluginName for (pluginName, plugin) in plugins"></select>
                                 </div>
 
                                 <div class="col-md-2">
                                     <label> To Plugin </label>
-                                    <select class="form-control" ng-model="inputmessage.toplugin" ng-options="plugin for plugin in plugins"></select>
+                                    <select class="form-control" ng-model="inputmessage.toplugin" ng-options="pluginName for (pluginName, plugin) in plugins"></select>
                                 </div>
                                 <!-- <label class="control-label col-md-1" for="singleSelect"> Single select: </label>
                                 <select name="singleSelect" ng-model="message.selected" type="button" class="btn btn-primary" uib-dropdown-toggle>

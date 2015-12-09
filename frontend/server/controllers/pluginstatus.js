@@ -20,8 +20,8 @@ PluginStatus.prototype.onHeartbeatReceived = function() {
 		self.onHeartbeatTimeout();
 	}, 10000);
 	if(this.status === "off") {
-		this.emit("onstatus", this);
 		this.status = "on";	
+		this.emit("onstatus", this);
 	}
 	
 }
@@ -31,11 +31,5 @@ PluginStatus.prototype.onHeartbeatTimeout = function () {
 	//console.log(this);
 	this.emit("onstatus", this);
 }
-
-PluginStatus.prototype.show = function() {
-	console.log("show");
-}
-
-
 
 module.exports = PluginStatus;

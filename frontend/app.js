@@ -46,16 +46,21 @@ var recvClient = mqlight.createClient({service: url});
 var connector = new Connector(server, recvClient);
 connector.start();
 
+app.get('/plugins', function(req, res){
+    res.send(connector.getPlugins());
+})
+
 recvClient.on('started', function() {
-	console.log("mq light started");
+	  console.log("mq light started");
 	
 });
 
 recvClient.on('error', function(error) {
   console.error('*** error ***');
   if (error) {
-    if (error.message) console.error('message: %s', error.toString());
-    else if (error.stack) console.error(error.stack);
+    /*if (error.message) console.error('message: %s', error.toString());
+    else if (error.stack) console.error(error.stack);*/
+    console.error(error.stack);
   }
 });
 

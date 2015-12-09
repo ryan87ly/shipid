@@ -24,26 +24,30 @@ app.factory('socket', function($rootScope){
 	};
 });
   
-app.controller('frondendCtrl', ['$scope', 'socket', function ($scope, socket) {
+app.controller('frondendCtrl', ['$scope', '$http', 'socket', function ($scope, $http, socket) {
   $scope.messages = [];
 
   socket.on('log', function(data){
-  	var displayableData = toDisplayableObject(data);
-  	console.log("getting log " + JSON.stringify(displayableData));
-  	$scope.messages.push(displayableData);
+    	var displayableData = toDisplayableObject(data);
+    	console.log("getting log " + JSON.stringify(displayableData));
+    	$scope.messages.push(displayableData);
   })
 
   socket.on('pluginStatus', function(data){
-    console.log("getting pluginStatus " + JSON.stringify(data));
+      console.log("getting pluginStatus " + JSON.stringify(data));
+      /*
+        data {
+           pluginName : "plugin0",
+           status: "on" // on/off
+        }
+      */
+      $scope.plugins[data.pluginName] = data;
   });
 
-  $scope.plugins = function get(){
-  	 var result = [];
-  	 for(var i = 0; i < 5; ++ i){
-  	 	result.push("plugin " + i);
-  	 }
-  	 return result;
-  }();
+  $scope.plugins = {};
+  $http.get('/plugins', {}).then(function(response){
+      $scope.plugins = response.data;
+  });
 
   $scope.send = function(msg) {
   	 console.log("send message: " + JSON.stringify(msg));
