@@ -12,6 +12,7 @@ var Connector = function(server, mqClient){
 	mqClient.subscribe('heartbeat');
 
 	mqClient.on('message', function(receivedData, delivery) {
+		console.log('Recv Raw: %s', receivedData);
 		var data  = {};
 		if (typeof(receivedData) === 'object') {
 			data = receivedData;

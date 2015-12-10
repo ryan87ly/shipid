@@ -95,18 +95,20 @@
                         <table class="table messagetable">
                             <thead>
                                 <tr>
-                                    <th class="col-md-2">Time</th>
+                                    <th class="col-md-3">Time</th>
                                     <th class="col-md-1">Level</th>
-									<th class="col-md-1">Plugin</th>
-                                    <th class="col-md-7">Content</th>
+									<th class="col-md-1">From</th>
+									<th class="col-md-1">To</th>
+                                    <th class="col-md-6">Content</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="message in messages" class="{{message.type}}" set-focus="$last">
-                                    <td class="col-md-2">{{message.time}}</td>
+                                    <td class="col-md-3">{{message.time}}</td>
                                     <td class="col-md-1">{{message.level.toUpperCase()}}</td>
 									<td class="col-md-1">{{message.fromPlugin}}</td>
-                                    <td class="col-md-7">{{message.content}}</td>
+									<td class="col-md-1">{{message.toPlugin}}</td>
+                                    <td class="col-md-6">{{message.content}}</td>
                                 </tr>
                             </tbody>
                             <!--

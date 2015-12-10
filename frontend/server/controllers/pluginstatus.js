@@ -8,7 +8,7 @@ var PluginStatus = function(pluginName, status) {
 	this.status = status;
 	this.timeoutObject = setTimeout(function(){
 		self.onHeartbeatTimeout();
-	}, 10000);
+	}, 12000);
 }
 
 util.inherits(PluginStatus, EventEmitter);
@@ -18,7 +18,7 @@ PluginStatus.prototype.onHeartbeatReceived = function() {
 	clearTimeout(this.timeoutObject);
 	this.timeoutObject = setTimeout(function(){
 		self.onHeartbeatTimeout();
-	}, 10000);
+	}, 12000);
 	if(this.status === "off") {
 		this.status = "on";	
 		this.emit("onstatus", this);
