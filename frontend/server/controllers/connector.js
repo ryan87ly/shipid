@@ -1,7 +1,8 @@
 var moment = require('moment');
 var PluginStatus = require('./pluginstatus');
-
 var plugins = {};
+var ulutil = require('./util.js');
+var util = require('util');
 
 var Connector = function(server, mqClient){
 	var self = this;
@@ -12,15 +13,10 @@ var Connector = function(server, mqClient){
 	mqClient.subscribe('heartbeat');
 
 	mqClient.on('message', function(receivedData, delivery) {
+
 		console.log('Recv Raw: %s', receivedData);
-		var data  = {};
-		if (typeof(receivedData) === 'object') {
-			data = receivedData;
-		} else if (typeof(receivedData) === 'string') {
-			data = JSON.parse(receivedData);
-		} else {
-			console.error("unexpeceted receivedData " + receivedData);
-		}
+		var data  = ulutil.ensureJsonObject(receivedData);
+
 		console.log('Recv: %s, %s', JSON.stringify(data), JSON.stringify(delivery));
 
 		var topic = delivery.message.topic;
@@ -69,7 +65,10 @@ Connector.prototype.start = function(){
 		var timerId = setInterval(function(){
 			//console.log('sending message ');
 			//socket.emit('log', {time: moment().format("YYYY-MM-DD HH:mm:ss.SSS"), content:"Hi from " + moment().format("L"), level:logLevels[randomInt(4)], fromPlugin: plugins[randomInt(4)]});
-		}, 1000);
+			var usage = util.inspect(process.memoryUsage());
+
+			socket.emit('log', {time: moment().format("YYYY-MM-DD HH:mm:ss.SSS"), content: usage, level: "debug", fromPlugin: "Bridge", toPlugin:""});						
+		}, 10000);
 
 		socket.on('disconnect', function(){
 			clearInterval(timerId);

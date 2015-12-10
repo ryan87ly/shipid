@@ -92,23 +92,23 @@
                     </div>
                     <div class="panel panel-default messagepanel">
                         <div class="panel-heading">Logging</div>
-                        <table class="table messagetable">
+                        <table class="table messagetable preferFont" style="table-layout:fixed">
                             <thead>
                                 <tr>
-                                    <th class="col-md-3">Time</th>
-                                    <th class="col-md-1">Level</th>
-									<th class="col-md-1">From</th>
-									<th class="col-md-1">To</th>
-                                    <th class="col-md-6">Content</th>
+                                    <th class="col-md-2" sytle="width:15%">Time</th>
+                                    <th class="col-md-1" sytle="width:5%">Level</th>
+									<th class="col-md-1" sytle="width:10%">From</th>
+									<th class="col-md-1" sytle="width:10%">To</th>
+                                    <th class="col-md-6" sytle="width:60%">Content</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr ng-repeat="message in messages" class="{{message.type}}" set-focus="$last">
-                                    <td class="col-md-3">{{message.time}}</td>
-                                    <td class="col-md-1">{{message.level.toUpperCase()}}</td>
-									<td class="col-md-1">{{message.fromPlugin}}</td>
-									<td class="col-md-1">{{message.toPlugin}}</td>
-                                    <td class="col-md-6">{{message.content}}</td>
+                                    <td class="col-md-2" >{{message.time}}</td>
+                                    <td class="col-md-1" >{{message.level.toUpperCase()}}</td>
+									<td class="col-md-1" >{{message.fromPlugin}}</td>
+									<td class="col-md-1" >{{message.toPlugin}}</td>
+                                    <td class="col-md-6" >{{message.content}}</td>
                                 </tr>
                             </tbody>
                             <!--
