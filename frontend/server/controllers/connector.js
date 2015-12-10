@@ -11,7 +11,15 @@ var Connector = function(server, mqClient){
 	mqClient.subscribe('log');
 	mqClient.subscribe('heartbeat');
 
-	mqClient.on('message', function(data, delivery) {
+	mqClient.on('message', function(receivedData, delivery) {
+		var data  = {};
+		if (typeof(receivedData) === 'object') {
+			data = receivedData;
+		} else if (typeof(receivedData) === 'string') {
+			data = JSON.parse(receivedData);
+		} else {
+			console.error("unexpeceted receivedData " + receivedData);
+		}
 		console.log('Recv: %s, %s', JSON.stringify(data), JSON.stringify(delivery));
 
 		var topic = delivery.message.topic;

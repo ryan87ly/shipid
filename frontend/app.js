@@ -39,7 +39,8 @@ client.subscribe("channel1");
 */
 
 //var url = 'amqp://192.168.246.179:5672';
-var url = 'amqp://192.168.246.163:6000';
+//var url = 'amqp://192.168.246.163:6000';
+var url = 'amqp://192.168.246.179:5672';
 
 var recvClient = mqlight.createClient({service: url});
 
