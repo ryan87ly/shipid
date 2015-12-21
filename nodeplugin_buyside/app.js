@@ -1,9 +1,9 @@
 var mqlight = require('mqlight');
 var moment = require('moment');
 var util = require('util');
+var ulutil = require('./util.js');
 var fs = require('fs');
 var config = JSON.parse(fs.readFileSync('./config/config.json', 'utf8'));
-var ulutil = require('./util.js');
 var pluginName = config.pluginName;
 
 var url = config.mqurl;
@@ -28,7 +28,7 @@ recvClient.on('started', function() {
 	//send heartbeat
 	setInterval(function(){
 		recvClient.send('heartbeat', {"pluginName": pluginName})
-	}, 5000);
+	}, 2000);
 });
 
 recvClient.on('message', function(dataReceived, delivery) {
@@ -51,18 +51,50 @@ function handleUserRequest(data) {
 	var time = moment().format("YYYY-MM-DD HH:mm:ss.SSS");
 	var level = "INFO";
 	var content = util.format("RouteMessage : %s", data.msg);
-	var tobeSent = {time: time, level:level, fromPlugin:data.fromPlugin, toPlugin:data.toPlugin, content:content};
+	var logMessage = {time: time, level:level, fromPlugin:data.fromPlugin, toPlugin:data.toPlugin, content:content};
 	console.log("Routing %s ", JSON.stringify(tobeSent));
-	
 	recvClient.send(routeMessageTopic, data);
 	recvClient.send("log", tobeSent);
 }
 
 function handlePushMessage(data) {
 	//handle and send outbound topic
+	//recvClient.send(outboundTopic, data);
+	var message = data.msg;
+	var ulm = ulutil.convertToULM(message);
+	var msgType = ulm["MSGTYPE"];
+	var messageContent = {};
+	if (msgType === "new") {
+		messageContent = handleNew(ulm);
+	} else {
+		console.error("unexcepted message type %s ", msgType);
+		return;
+	}
+
+	var ulmString = ulutil.toULMString(messageContent);
+
+	//var tobeSent = 
+	var time = moment().format("YYYY-MM-DD HH:mm:ss.SSS");
+	var level = "INFO";
+	var content = util.format("RouteMessage : %s", ulmString);
+
+	var logMessage = {time: time, level:level, fromPlugin:pluginName, toPlugin:data.fromPlugin, content:content};
+
+	var bridgeMessage = {fromPlugin:pluginName, toPlugin:data.fromPlugin, msg:message};
+
+	recvClient.send(routeMessageTopic, bridgeMessage);
+	recvClient.send("log", logMessage);	
 }
 
 
+function handleNew(ulm) {
+	var r = ulutil.cloneObject(ulm);
+	r["ORDSTATUS"] = "new";
+	r["MSGTYPE"] = "executionreport";
+	r["TRANSACTIONTIME"] = moment().milliseconds().toString();
+	r["EXECID"] = moment().milliseconds().toString();
+	return r;
+}
 
 /*var logData = function() {
 	return {time: moment().format("YYYY-MM-DD HH:mm:ss.SSS"), content:"Hi from MQ!!!! " + moment().format("L"), level:logLevels[randomInt(4)]};

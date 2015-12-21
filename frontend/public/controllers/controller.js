@@ -60,7 +60,7 @@ app.controller('frondendCtrl', ['$scope', '$http', 'socket', function ($scope, $
      var msg = {
         "fromPlugin" : input.fromPlugin.pluginName,
         "toPlugin" : input.toPlugin.pluginName,
-        "content" : input.content
+        "msg" : input.msg
      }
      console.log("send message: " + JSON.stringify(msg));
      socket.emit("message", msg);
@@ -75,7 +75,7 @@ app.controller('frondendCtrl', ['$scope', '$http', 'socket', function ($scope, $
   }
 
   $scope.checkSendMessage = function(msg) {
-    if (msg.fromPlugin && msg.fromPlugin.pluginName && msg.toPlugin && msg.toPlugin.pluginName && msg.content) {
+    if (msg.fromPlugin && msg.fromPlugin.pluginName && msg.toPlugin && msg.toPlugin.pluginName && msg.msg) {
         return false;
     }
     return true;

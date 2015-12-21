@@ -77,7 +77,9 @@ Connector.prototype.start = function(){
 		socket.on('message', function(data){
 			console.log('getting message ' + JSON.stringify(data));
 			if(data) {
-				self.mqClient.send("userRequest", data, function(error){
+				var fromPlugin = data.fromPlugin;
+				var topic = util.format("userRequest/%s", fromPlugin);
+				self.mqClient.send(topic, data, function(error){
 					console.log("Send error " + error);
 				});
 			}

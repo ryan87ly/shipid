@@ -1,4 +1,4 @@
 {
-	"pluginName" : "nodePlugin_ss_1",
+	"pluginName" : "nodePlugin_bs_1",
 	"mqurl" : "amqp://localhost:6000"
 }
